@@ -1,5 +1,5 @@
 # confeccao
-Este programa que estou criando seria uma maneira de resolver um problema de uma empresa que utiliza de excel para o controle da produção <br>
+Este programa que estou criando, seria uma maneira de resolver um problema de uma empresa que utiliza excel para o controle da produção <br>
 
 --terá no final do projeto 3 pastas <br>
 --sql - código para criação de tabelas, validação de certos dados e criação de linhas dependentes (postgre)<br>
