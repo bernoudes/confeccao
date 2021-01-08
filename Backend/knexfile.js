@@ -6,7 +6,16 @@ module.exports = {
   connection: dbinfo,
   pool: {
     min: 2,
-    max: 10
+    max: 10,
+    afterCreate:function(conn,done) {
+      conn.query('SET timezone="UTC";', function (err) {
+        if (err) {
+          done(err, conn)
+        } else{
+          done(err, conn)
+        }
+      })
+    }
   },
   migrations: {
     tableName: 'knex_migrations'
