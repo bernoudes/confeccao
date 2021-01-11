@@ -4,6 +4,7 @@ CREATE TABLE customers(
 	name VARCHAR(40) NOT NULL,
 	cpf VARCHAR(20) UNIQUE,
 	name_brand VARCHAR(40) NOT NULL,
+	isDeleted BOOL DEFAULT FALSE,
 	credit MONEY
 );
 
@@ -13,7 +14,8 @@ CREATE TABLE salesman(
 	cpf VARCHAR(20) UNIQUE,
 	admin BOOL NOT NULL,
 	login VARCHAR(20) NOT NULL,
-	password VARCHAR(30) NOT NULL,
+	password VARCHAR(255) NOT NULL,
+	isFormerEmployee BOOL DEFAULT false,
 	CONSTRAINT const_longin UNIQUE (login)
 );
 
@@ -98,5 +100,5 @@ CREATE TABLE seam(
 	passadoria TIMESTAMP
 );
 
-
+select * from customers;
 

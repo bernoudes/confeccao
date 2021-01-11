@@ -14,12 +14,12 @@ CREATE FUNCTION create_customers(name VARCHAR(40), cpf VARCHAR(20),name_brand VA
 		END IF;
 		
 		INSERT INTO customers (name, cpf,name_brand) VALUES (name, cpf,name_brand);
-		RETURN 'create_customers_success';
+		RETURN 'success';
 	END;
 $$;
 
 ---------------------------------------------------------------------------
-CREATE FUNCTION create_salesman(name VARCHAR(40), cpf VARCHAR(20), 
+CREATE FUNCTION create_salesman(name VARCHAR(40), cpf_2 VARCHAR(20), 
 admin BOOL, login_2 VARCHAR(20),password VARCHAR(30))
 	RETURNS text
 	LANGUAGE plpgsql
@@ -27,7 +27,7 @@ admin BOOL, login_2 VARCHAR(20),password VARCHAR(30))
 	BEGIN
 		IF(name IS NULL) OR (length(name) <= 2) THEN
 			return 'error_name';
-		ELSEIF (cpf IS NOT NULL) AND (length(cpf)< 11) THEN
+		ELSEIF (cpf_2 IS NULL) OR (SELECT EXISTS(SELECT cpf FROM salesman WHERE cpf = cpf_2))THEN
 			RETURN 'error_cpf';
 		ELSEIF(admin IS NULL) THEN
 			admin = false;
@@ -39,11 +39,12 @@ admin BOOL, login_2 VARCHAR(20),password VARCHAR(30))
 		END IF;
 		
 		INSERT INTO salesman (name, cpf, admin,login,password)
-			VALUES (name, cpf, admin,login_2,password);
+			VALUES (name, cpf_2, admin,login_2,password);
 			
-		RETURN 'create_salesman_success';
+		RETURN 'success';
 	END;
 $$;
+
 
 ---------------------------------------------------------------------------
 CREATE FUNCTION create_orders(salesman_id INTEGER, customers_id INTEGER, money_input MONEY, money_all MONEY)
