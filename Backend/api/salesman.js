@@ -12,25 +12,24 @@ module.exports = app =>{
         const salesman = { ...req.body }
         const idput = req.params.id //case id exists (put)
 
-        console.log(typeof idput)
         //validating filling in information
-        if(salesman.name == null || salesman.name == undefined || salesman.name.length < 2){
+        if(salesman.name == null || salesman.name.length < 2){
             res.status(400).send('nome não preenchido corretamente')
             return
         }
-        if(salesman.admin == null || salesman.admin == undefined || typeof salesman.admin !== 'boolean' ){
+        if(salesman.admin == null || typeof salesman.admin !== 'boolean' ){
             res.status(400).send('administrador não foi preenchido corretamente') 
             return
         }
-        if(salesman.login == null || salesman.login == undefined || salesman.login.length < 2){
+        if(salesman.login == null || salesman.login.length < 2){
             res.status(400).send('login não foi preechido corretamente')
             return
         }
-        if(salesman.password == null || salesman.password == undefined || salesman.password.length < 5){
+        if(salesman.password == null || salesman.password.length < 5){
             res.status(400).send('password não foi preechido corretamente')
             return
         }
-        if(salesman.cpf == null || salesman.cpf == undefined || salesman.cpf.length < 11){
+        if(salesman.cpf == null || salesman.cpf.length < 11){
             res.status(400).send('cpf não foi preenhido corretamente (não colocar pontuação)')
         }
 

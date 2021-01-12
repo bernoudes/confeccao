@@ -17,7 +17,7 @@ module.exports = app => {
 
 
     //actions about customers (admin and salesman can create and modify the information)
-    app.route('/customers/create')
+    app.route('/customers')
         .post(app.api.customers.save)
 
     app.route('/customers')
