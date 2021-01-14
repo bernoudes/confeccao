@@ -19,12 +19,22 @@ module.exports = app => {
     //actions about customers (admin and salesman can create and modify the information)
     app.route('/customers')
         .post(app.api.customers.save)
-
-    app.route('/customers')
         .get(app.api.customers.get)
 
     app.route('/customers/:id')
         .put(app.api.customers.save)
         .get(app.api.customers.getById)
         .delete(app.api.customers.remove)
+
+    //actions about orders (admin and salesman can create but only adim can remove)
+    app.route('/orders')
+        .post(app.api.orders.save)
+        .get(app.api.orders.get)
+
+    app.route('/orders/:id')
+        .put(app.api.orders.save)
+        .get(app.api.orders.getById)
+        .delete(app.api.orders.cancel)
+    
+
 }

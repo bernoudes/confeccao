@@ -12,29 +12,31 @@ module.exports = app =>{
         const salesman = { ...req.body }
         const idput = req.params.id //case id exists (put)
 
+
+        let errorInfo = ''
         //validating filling in information
         if(salesman.name == null || salesman.name.length < 2){
-            res.status(400).send('nome não preenchido corretamente')
-            return
+            errorInfo.concat('error_name-')
         }
         if(salesman.admin == null || typeof salesman.admin !== 'boolean' ){
-            res.status(400).send('administrador não foi preenchido corretamente') 
-            return
+            errorInfo.concat('error_adm-')
         }
         if(salesman.login == null || salesman.login.length < 2){
-            res.status(400).send('login não foi preechido corretamente')
-            return
+            errorInfo.concat('error_login-')
         }
         if(salesman.password == null || salesman.password.length < 5){
-            res.status(400).send('password não foi preechido corretamente')
-            return
+            errorInfo.concat('error_password-')
         }
         if(salesman.cpf == null || salesman.cpf.length < 11){
-            res.status(400).send('cpf não foi preenhido corretamente (não colocar pontuação)')
+            errorInfo.concat('error_cpf-')
+        }
+
+        if(errorInfo != ''){
+            res.status(400).send(errorInfo)
         }
 
         if(!validatingCpf(salesman.cpf)){
-            res.status(400).send('cpf invalido')
+            res.status(400).send('invalidate_cpf')
             return
         }
 
@@ -52,11 +54,11 @@ module.exports = app =>{
                     const salesreponse = salesres.rows[0].create_salesman;
                     if(salesreponse != 'success'){
                         if(salesreponse == 'error_login') {
-                            res.status(400).send('email ja cadastrado')
+                            res.status(400).send('registered_email')
                         } else if(salesreponse == 'error_cpf') {
-                            res.status(400).send('cpf ja cadastrado')
+                            res.status(400).send('registered_cpf')
                         } else {
-                            res.status(500).send('erro no server:' + salesreponse)
+                            res.status(500).send('erro_in_server:' + salesreponse)
                         }     
                     } else {
                         res.status(204).send('success')
@@ -71,6 +73,9 @@ module.exports = app =>{
                 .then(res.status(204).send('success'))
                 .catch(err => res.status(500).send(err))
         }
+
+        
+
         return
     }
     
@@ -101,7 +106,7 @@ module.exports = app =>{
                 .catch(err => res.status(500).send(err))
             return
         }
-        res.status(400).send('id não é um numero')
+        res.status(400).send('invalidate_id')
         return
     }
     
