@@ -57,18 +57,50 @@ module.exports = app => {
         }
     }
 
-    const get = (req, res) =>{
-        
+    const get = async (req, res) =>{
+        try{
+            const limit = parseint(req.query.limit) || 20
+            const page = parseint(req.query.page) || 1
 
-    }
-
-    const getById = (req, res) => {
-
+            await app.db('orders')
+                .select('*')
+                .limit(limit).offset(page * limit - limit)
+                .then(respo => res.json(respo))
+                .catch(err => res.status(500).send('error_server'))
+        } catch (e){
+            res.status(500).send('error_paginator')
+        }
     }
     
-    const cancel = (req, res) => {
+    const getById = async (req, res) => {
+        const idput = req.params.id
 
+        if(idput != undefined && !isNaN(idput)){
+            await app.db('orders')
+                .select('*')
+                .where({id: idput})
+                .then(respo => res.json(respo))
+                .catch(err => res.status(500).send('error_server'))
+        }
+    }
+    
+    const cancel = async (req, res) => {
+        const idput = req.params.id
+        const textEx = { ...req.body }
 
+        if(idput != undefined && !isNaN(idput)){
+            if(textEx.text != undefined && textEx.text.length > 5){
+                await app.db
+                    .raw(`UPDATE orders SET is_cancel = ${true} WHERE id = ${idput};
+                          UPDATE orders SET is_cancel_text = '${textEx.text}' WHERE id = ${idput};`)
+                    .then(respo => res.status(204).send('success'))
+                    .catch(err => res.status(500).send('error_server'))
+            } else {
+                res.status(400).send('invalidate_text')
+            }
+        } else {
+            res.status(400).send('invalidate_id')
+        }
     }
 
 

@@ -58,7 +58,7 @@ module.exports = app => {
             .orderBy('id')
             .where({isdeleted: false})
             .then(customer => res.json(customer))
-            .catch(err => res.status(500).send(err))
+            .catch(err => res.status(500).send('error_server'))
     }
 
     const getById = async(req, res) =>{
@@ -75,7 +75,7 @@ module.exports = app => {
                         res.json(customer)
                     }
                 })
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send('error_server'))
         } else {
             res.status('400').send('error_id')
         }
@@ -88,7 +88,7 @@ module.exports = app => {
                 .update({isdeleted: true})
                 .where({id: idput})
                 .then(res.status(204).send('success'))
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send('error_server'))
         } else {
             res.status(400).send('error_id')
         }

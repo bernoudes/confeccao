@@ -73,9 +73,6 @@ module.exports = app =>{
                 .then(res.status(204).send('success'))
                 .catch(err => res.status(500).send(err))
         }
-
-        
-
         return
     }
     
