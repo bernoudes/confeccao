@@ -75,28 +75,41 @@ module.exports = app =>{
         }
         return
     }
-    
-    const get = (req, res) => {
-        app.db('salesman')
+
+    //----------------------------------------------
+    const get = async (req, res) => {
+        let limit = req.query.limit
+        let page = req.query.page
+
+        if(limit == undefined || isNaN(limit))
+            limit = 10
+
+        if(page == undefined || isNaN(page))
+            page = 1
+
+        await app.db('salesman')
             .select('name','cpf','admin','login')
+            .limit(limit).offset(page * limit - limit)
             .then(salesman => res.json(salesman))
             .catch((err) => res.status(500).send(err))
     }
 
+    //----------------------------------------------
     const getById = async (req, res) => {
-        app.db('salesman')
+        await app.db('salesman')
             .select('name','cpf','admin','login')
             .where({id: req.params.id})
             .then(saleman => res.json(saleman))
             .catch((err) => res.status(500).send(err))
     }
 
+    //----------------------------------------------
     //this remove is a soft delet
     const remove = async (req, res) => {
         const idput = req.params.id //case id exists (put)
 
         if(idput != undefined || !isNaN(idput)){
-            app.db('salesman')
+            await app.db('salesman')
                 .where({id: idput})
                 .update({isformeremployee: true})
                 .then(res.status(204).send('success'))

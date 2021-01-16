@@ -57,21 +57,25 @@ module.exports = app => {
         }
     }
 
+    //----------------------------------------------
     const get = async (req, res) =>{
-        try{
-            const limit = parseint(req.query.limit) || 20
-            const page = parseint(req.query.page) || 1
+        const limit = req.query.limit
+        const page = req.query.page
 
-            await app.db('orders')
-                .select('*')
-                .limit(limit).offset(page * limit - limit)
-                .then(respo => res.json(respo))
-                .catch(err => res.status(500).send('error_server'))
-        } catch (e){
-            res.status(500).send('error_paginator')
-        }
+        if(limit == undefined || isNaN(limit))
+            limit = 10
+
+        if(page == undefined || isNaN(page))
+            page = 1
+
+        await app.db('orders')
+            .select('*')
+            .limit(limit).offset(page * limit - limit)
+            .then(respo => res.json(respo))
+            .catch(err => res.status(500).send('error_server'))
     }
     
+    //----------------------------------------------
     const getById = async (req, res) => {
         const idput = req.params.id
 
@@ -84,6 +88,7 @@ module.exports = app => {
         }
     }
     
+    //----------------------------------------------
     const cancel = async (req, res) => {
         const idput = req.params.id
         const textEx = { ...req.body }

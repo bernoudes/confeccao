@@ -52,15 +52,27 @@ module.exports = app => {
         return
     }
     
+    //----------------------------------------------
     const get = async(req, res) => {
+        let limit = req.query.limit
+        let page = req.query.page
+
+        if(limit == undefined || isNaN(limit))
+            limit = 10
+
+        if(page == undefined || isNaN(page))
+            page = 1
+
         await app.db('customers')
             .select('name', 'cpf', 'name_brand', 'credit')
             .orderBy('id')
             .where({isdeleted: false})
+            .limit(limit).offset(page * limit - limit)
             .then(customer => res.json(customer))
             .catch(err => res.status(500).send('error_server'))
     }
 
+    //----------------------------------------------
     const getById = async(req, res) =>{
         const idput = req.params.id
         if(idput != undefined && !isNaN(idput)){
@@ -81,6 +93,7 @@ module.exports = app => {
         }
     }
 
+    //----------------------------------------------
     const remove = async(req, res) => {
         const idput = req.params.id
         if(idput != undefined && !isNaN(idput)){
