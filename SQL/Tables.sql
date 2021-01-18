@@ -48,57 +48,43 @@ CREATE TABLE product(
 in this case the final 1 is the true primary key of production don't create the production
 for insert, use the function (select create_production(...))*/
 
-/*the tables execution_production and seam are auxiliary table of production,
-don't insert nothing in there directly*/
 CREATE TABLE production(
 	cd_production VARCHAR(15) PRIMARY KEY NOT NULL,
 	orders_id SERIAL references orders(id) NOT NULL,
 	product_id SERIAL references product(id) NOT NULL,
 	cd_refer_production INTEGER,
-	price_unity MONEY,
-	quantity_products INTEGER,
-	embroidery BOOL,
-	silk BOOL,
-	laser_applique BOOL,
-	laser_holes BOOL,
-	sublimation_applique BOOL,
-	sublimation_body BOOL,
-	vies BOOL,
-	forro BOOL
-);
-
-
-CREATE TABLE execution_production(
-	cd_production VARCHAR(15) references production(cd_production) NOT NULL,
-	print TIMESTAMP,
-	program_embroidery TIMESTAMP,
-	separation TIMESTAMP,
-	dublagem TIMESTAMP,
-	cut TIMESTAMP,
-	laser_holes TIMESTAMP,
-	laser_applique TIMESTAMP,
-	data_print_sublimation_applique TIMESTAMP,
-	quant_print_sublimation_applique TIMESTAMP,
-	data_print_sublimation_forro TIMESTAMP,
+	sales_price_unity MONEY,
+	sales_quantity_products INTEGER,
+	sales_embroidery BOOL,
+	sales_silk BOOL,
+	sales_laser_applique BOOL,
+	sales_laser_holes BOOL,
+	sales_sublimation_applique BOOL,
+	sales_sublimation_body BOOL,
+	sales_vies BOOL,
+	sales_forro BOOL,
+	exec_print TIMESTAMP,
+	exec_program_embroidery TIMESTAMP,
+	exec_separation TIMESTAMP,
+	exec_dublagem TIMESTAMP,
+	exec_cut TIMESTAMP,
+	exec_laser_holes TIMESTAMP,
+	exec_laser_applique TIMESTAMP,
+	exec_data_print_sublimation_applique TIMESTAMP,
+	exec_quant_print_sublimation_applique TIMESTAMP,
+	exec_data_print_sublimation_forro TIMESTAMP,
 	quant_print_sublimation_forro TIMESTAMP,
-	vies TIMESTAMP,
-	silk TIMESTAMP,
-	peak TIMESTAMP,
-	sublimation_applique TIMESTAMP,
-	sublimation_forro TIMESTAMP
+	exec_vies TIMESTAMP,
+	exec_silk TIMESTAMP,
+	exec_peak TIMESTAMP,
+	exec_sublimation_applique TIMESTAMP,
+	exec_sublimation_forro TIMESTAMP,
+	seam_forro_front TIMESTAMP,
+	seam_side_back TIMESTAMP,
+	seam_vies TIMESTAMP,
+	seam_peak TIMESTAMP,
+	seam_fecho TIMESTAMP,
+	seam_swearband TIMESTAMP,
+	seam_arremate TIMESTAMP,
+	seam_passadoria TIMESTAMP
 );
-
-CREATE TABLE seam(
-	cd_production VARCHAR(15) references production(cd_production) NOT NULL,
-	forro_front TIMESTAMP,
-	side_back TIMESTAMP,
-	vies TIMESTAMP,
-	peak TIMESTAMP,
-	fecho TIMESTAMP,
-	swearband TIMESTAMP,
-	arremate TIMESTAMP,
-	passadoria TIMESTAMP
-);
-
-select * from customers;
-

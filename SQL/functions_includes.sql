@@ -147,17 +147,15 @@ CREATE FUNCTION create_production(
 			CAST(cd_value AS VARCHAR)
 		));
 	
-		INSERT INTO	production VALUES (
-			cd_production,orders_id_2,product_id,cd_value,price_unity,quantity_products,
+		INSERT INTO	production 
+			(cd_production, orders_id, product_id, cd_refer_production, sales_price_unity,
+			sales_quantity_products, sales_embroidery, sales_silk, sales_laser_applique,
+			sales_laser_holes, sales_sublimation_applique, sales_sublimation_body,
+			sales_vies, sales_forro)
+			VALUES 
+			(cd_production,orders_id_2,product_id,cd_value,price_unity,quantity_products,
 			embroidery,silk,laser_applique,laser_holes,sublimation_applique,sublimation_body,
-			vies,forro
-		);
-		
-		INSERT INTO	execution_production (cd_production) VALUES (cd_production);
-		INSERT INTO	seam (cd_production) VALUES (cd_production);
-		
+			vies,forro);
 		RETURN 'success';
 	END;
 $$;
-
-

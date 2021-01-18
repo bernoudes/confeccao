@@ -80,7 +80,19 @@ SELECT  create_production(3 , 3 , CAST(32 AS MONEY) , 80,
 SELECT  create_production(4 , 1 , CAST(70 AS MONEY) , 90,
 	true ,true ,false ,false , true ,false , true , true );
 	
+SELECT  create_production(1 , 2 , CAST(10 AS MONEY) , 30,
+	true ,true ,false ,false , true ,false , true , true );
+	
 SELECT  create_production(1 , 2 , CAST(20 AS MONEY) , 30,
+	true ,true ,false ,false , true ,false , true , true );
+	
+SELECT  create_production(1 , 2 , CAST(30 AS MONEY) , 30,
+	true ,true ,false ,false , true ,false , true , true );
+	
+SELECT  create_production(1 , 2 , CAST(40 AS MONEY) , 30,
+	true ,true ,false ,false , true ,false , true , true );
+	
+SELECT  create_production(1 , 2 , CAST(50 AS MONEY) , 30,
 	true ,true ,false ,false , true ,false , true , true );
 	
 SELECT  create_production(2 , 3 , CAST(35 AS MONEY) , 25,
@@ -102,11 +114,9 @@ SELECT  create_production(1 , 2 , CAST(20 AS MONEY) , 30,
 
 
 SELECT * from production;
-SELECT * from execution_production;
 SELECT * from orders;
-SELECT * from seam;
 SELECT * from customers;
 SELECT * from salesman;
 
-CALL delete_order(1);
-CALL all_reset();
+--CALL delete_order(1);
+--CALL all_reset();

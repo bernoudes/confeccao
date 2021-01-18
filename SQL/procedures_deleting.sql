@@ -1,38 +1,33 @@
 
-CREATE PROCEDURE  delete_production(pa_cd_production VARCHAR(15))
+CREATE FUNCTION  delete_production(pa_cd_production VARCHAR(15))
+	RETURNS text
 	LANGUAGE plpgsql
 	AS $$
+	DECLARE 
+		cd_ref_delete INTEGER := (SELECT cd_refer_production FROM production WHERE cd_production = pa_cd_production);
+		cd_orders_id INTEGER := (SELECT orders_id FROM production WHERE cd_production = pa_cd_production);
+		cd_orders VARCHAR(15) := (SELECT cd_orders FROM orders WHERE id = cd_orders_id);
 	BEGIN
 		--THE (IF) EXISTS FOR NOT GENERATE AN ERROR IN THE TABLE
 		IF(SELECT EXISTS(SELECT cd_production FROM production WHERE cd_production = pa_cd_production)) THEN
 			DELETE FROM production WHERE cd_production = pa_cd_production;
+			
+			UPDATE production SET 
+				cd_refer_production = cd_refer_production - 1,
+				cd_production = (SELECT concat(cd_orders,'-',cd_refer_production - 1))
+				WHERE production.orders_id = cd_orders_id and cd_refer_production > cd_ref_delete;
+			RETURN 'success';
 		END IF;
-		
-		IF(SELECT EXISTS(SELECT cd_production FROM execution_production WHERE cd_production = pa_cd_production)) THEN
-			DELETE FROM execution_production WHERE cd_production = pa_cd_production;
-		END IF;
-		
-		IF(SELECT EXISTS(SELECT cd_production FROM seam WHERE cd_production = pa_cd_production)) THEN
-			DELETE FROM seam WHERE cd_production = pa_cd_production;
-		END IF;
+		RETURN 'error_delete_production';
 	END;
 $$
 
 CREATE PROCEDURE delete_order(pa_order_id INTEGER)
 	LANGUAGE plpgsql
 	AS $$
-	DECLARE
-	cd_production_array VARCHAR(15)[];
 	BEGIN
 		IF (SELECT EXISTS(SELECT id FROM orders WHERE id = pa_order_id)) THEN
-			cd_production_array := ARRAY(SELECT cd_production FROM production WHERE orders_id = pa_order_id);
-			
-			IF(cd_production_array IS NOT NULL) AND (array_length(cd_production_array,1) > 0) THEN
-				FOR i IN 1..array_length(cd_production_array,1) LOOP
-					CALL delete_production(cd_production_array[i]);
-				END LOOP;
-			END IF;
-			
+			DELETE FROM production WHERE production.orders_id = pa_order_id;
 			DELETE FROM orders WHERE id = pa_order_id;
 		END IF;
 	END;
