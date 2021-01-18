@@ -1,3 +1,10 @@
+const dataFormat = () =>{
+    const today = new Date();
+    const returDate = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate() + ' ' +
+        today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    return returDate
+}
+
 module.exports= app =>{
     const save = async (req, res) =>{
         const cod = req.params.id
@@ -74,7 +81,21 @@ module.exports= app =>{
                 .catch(err => res.send(500).send('error_server'))
         }
     }
+    //----------------------------------------------
+    //insert the date in db, in a timestamp type field for production control
 
+    const modify  = async (req, res) => {
+        const cod = req.params.id
+        const production = { ...req.body }
+
+        if(cod != undefined && production.field != undefined){
+           await app.db('production')
+                .update(`${production.field}`,`${dataFormat()}`)
+                .where({cd_production: cod})
+                .then(resp => res.status(204).send('success'))
+                .catch(err => res.status(500).send('error_server'))
+        }
+    }
 
     //----------------------------------------------
     const get = async (req, res) => {
@@ -126,5 +147,5 @@ module.exports= app =>{
         }
     }
 
-    return { save, get, getById, remove }
+    return { save, modify, get, getById, remove }
 }

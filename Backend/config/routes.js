@@ -37,12 +37,16 @@ module.exports = app => {
         .delete(app.api.orders.cancel)
     
     //actions about production (admin and salesman can create and modify but only admin can delete)
+    app.route('/production/mdf/:id')
+        .put(app.api.production.modify)
+
     app.route('/production/:id')
         .get(app.api.production.getById)
         .delete(app.api.production.remove)
-        .post(app.api.production.save)
+        .put(app.api.production.save)
 
     app.route('/production')
         .post(app.api.production.save)
         .get(app.api.production.get)
+        .post(app.api.production.save)
 }
