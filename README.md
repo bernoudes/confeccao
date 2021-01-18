@@ -8,3 +8,4 @@ Este programa que estou criando, seria uma maneira de resolver um problema de um
 
 Apesar da readme estár em português vou manter o padrão do código em inglês<br>
 com exceção apenas de algumas partes específicas da produção das peças<br>
+para configurar a coneção com o db vá para o backend e configure o env
