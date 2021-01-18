@@ -64,14 +64,14 @@ module.exports = app =>{
                         res.status(204).send('success')
                     }
                 })
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send('error_server'))
 
         } else {
             app.db('salesman')
                 .update(salesman)
                 .where({id: 7})
                 .then(res.status(204).send('success'))
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send('error_server'))
         }
         return
     }
@@ -91,7 +91,7 @@ module.exports = app =>{
             .select('name','cpf','admin','login')
             .limit(limit).offset(page * limit - limit)
             .then(salesman => res.json(salesman))
-            .catch((err) => res.status(500).send(err))
+            .catch((err) => res.status(500).send('error_server'))
     }
 
     //----------------------------------------------
@@ -100,7 +100,7 @@ module.exports = app =>{
             .select('name','cpf','admin','login')
             .where({id: req.params.id})
             .then(saleman => res.json(saleman))
-            .catch((err) => res.status(500).send(err))
+            .catch((err) => res.status(500).send('error_server'))
     }
 
     //----------------------------------------------
@@ -113,7 +113,7 @@ module.exports = app =>{
                 .where({id: idput})
                 .update({isformeremployee: true})
                 .then(res.status(204).send('success'))
-                .catch(err => res.status(500).send(err))
+                .catch(err => res.status(500).send('error_server'))
             return
         }
         res.status(400).send('invalidate_id')

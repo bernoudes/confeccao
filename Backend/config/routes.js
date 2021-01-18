@@ -36,9 +36,11 @@ module.exports = app => {
         .get(app.api.orders.getById)
         .delete(app.api.orders.cancel)
     
-    //actions about production (admin and salesman can create and modify and delete)
+    //actions about production (admin and salesman can create and modify but only admin can delete)
     app.route('/production/:id')
-    .get(app.api.production.getById)
+        .get(app.api.production.getById)
+        .delete(app.api.production.remove)
+        .post(app.api.production.save)
 
     app.route('/production')
         .post(app.api.production.save)
