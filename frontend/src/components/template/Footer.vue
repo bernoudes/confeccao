@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        Projeto Criado Por Lucas Bernardo da Silva
+        <p>Projeto Criado Por Lucas Bernardo da Silva</p>
     </div>
 </template>
 
@@ -16,7 +16,9 @@ export default {
         display: flex;      
         justify-content: flex-end;
         align-items: Center;
+    }
+    .footer p{
+        margin-right: 20px;
         color: gray;
     }
-
 </style>

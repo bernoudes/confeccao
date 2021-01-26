@@ -22,6 +22,11 @@ export default {
 </script>
 
 <style>
+  @font-face {
+    font-family: 'PTSans-Regular';
+    src: url('./assets/PTSans-Regular.ttf');
+  }
+
   .app{
     height: 97vh;
     display: grid;
