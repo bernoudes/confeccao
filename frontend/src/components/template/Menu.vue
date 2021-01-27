@@ -2,7 +2,7 @@
     <div class="menu">
         <span @click="registerCustomer">Cadastro Cliente</span>
         <span @click="createOrders">Criação de Pedidos </span>
-        <span>Pedidos</span>
+        <span @click="showOrders">Pedidos</span>
         <!--below is for admin only -->
         <span>Vendedores</span>
         <span>Gráficos</span>
@@ -24,6 +24,12 @@ export default {
             if(this.$router.history.current.name != 'CreateOrders'){
                 this.$router.push({name: 'CreateOrders'})
             }        
+        },
+        showOrders(event){
+            event.preventDefault()
+            if(this.$router.history.current.name != 'ShowOrders'){
+                this.$router.push({name:'ShowOrders'})
+            }
         }
     }
 }
