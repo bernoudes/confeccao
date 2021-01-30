@@ -276,41 +276,44 @@ const itemsData = [
 ]
 
 
-const rowVariantTemplate = (element) =>{
-    element._cellVariants = {exec_program_embroidery:'info'}
-    element._cellVariants = {exec_data_print_sublimation_applique:'success'}
-    element._cellVariants = {exec_quant_print_sublimation_applique:'danger'}
-    element._cellVariants = {exec_data_print_sublimation_forro:'danger'}
-    element._cellVariants = {quant_print_sublimation_forro:'danger'}
-    element._cellVariants = {exec_separation:'warning'}
-    element._cellVariants = {exec_dublagem:'primary'}
-    element._cellVariants = {exec_cut:'secondary'}
-    element._cellVariants = {exec_laser_holes:'success'}
-    element._cellVariants = {exec_laser_applique:'warning'}
-    element._cellVariants = {exec_vies:'danger'}
-    element._cellVariants = {exec_silk:'info'}
-    element._cellVariants = {exec_peak:'light'}
-    element._cellVariants = {exec_sublimation_applique:'primary'}
-    element._cellVariants = {exec_sublimation_forro:'secondary'}
-    element._cellVariants = {seam_forro_front:'success'}
-    element._cellVariants = {seam_side_back:'warning'}
-    element._cellVariants = {seam_vies:'danger'}
-    element._cellVariants = {seam_peak:'info'}
-    element._cellVariants = {seam_fecho:'light'}
-    element._cellVariants = {seam_swearband:'primary'}
-    element._cellVariants = {seam_arremate:'secondary'}
-    element._cellVariants = {seam_passadoria:'success'}
+const rowVariantTemplate = (element,variant) =>{
+    element._cellVariants = {
+        status_order: variant,
+        exec_program_embroidery:'info',
+        exec_data_print_sublimation_applique:'success',
+        exec_quant_print_sublimation_applique:'danger',
+        exec_data_print_sublimation_forro:'danger',
+        quant_print_sublimation_forro:'danger',
+        exec_separation:'warning',
+        exec_dublagem:'primary',
+        exec_cut:'secondary',
+        exec_laser_holes:'success',
+        exec_laser_applique:'warning',
+        exec_vies:'danger',
+        exec_silk:'info',
+        exec_peak:'light',
+        exec_sublimation_applique:'primary',
+        exec_sublimation_forro:'secondary',
+        seam_forro_front:'success',
+        seam_side_back:'warning',
+        seam_vies:'danger',
+        seam_peak:'info',
+        seam_fecho:'light',
+        seam_swearband:'primary',
+        seam_arremate:'secondary',
+        seam_passadoria:'success'
+    }
+
+    return element
 }
 
 const itemsModify = (itemsDatas) =>{
     itemsDatas.forEach(element => {
         if(element.status_order == 'Prosseguindo'){
-            rowVariantTemplate(element)
-            element._cellVariants= { status_order: 'success'}
+            rowVariantTemplate(element,'success')
         } 
         if(element.status_order == 'Alerta'){
-            rowVariantTemplate(element)
-            element._cellVariants= {status_order: 'warning '}
+            rowVariantTemplate(element,'warning')
         } 
         if(element.status_order == 'Atrasado'){
             element._rowVariant='danger'
