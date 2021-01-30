@@ -12,35 +12,33 @@ const Fields = [
     { key: 'sales_sublimation_body', label: 'subli_corpo'},
     { key: 'sales_vies', label: 'viés'},
     { key: 'sales_forro', label: 'forro'},
-
-    { key: 'exec_print', label: 'impresso', variant:'info'},
-    { key: 'exec_program_embroidery', label: 'programa_bordado', variant:'success' },
-    { key: 'exec_data_print_sublimation_applique', label: 'impressao_aplique', variant:'danger '},
-    { key: 'exec_quant_print_sublimation_applique', label: 'quantidade', variant:'danger '},
-    { key: 'exec_data_print_sublimation_forro', label: 'impressao_forro', variant:'danger '},
-    { key: 'quant_print_sublimation_forro', label: 'metragem', variant:'danger '},
-    { key: 'exec_separation', label: 'pr_Separação', variant:'warning '},
-    { key: 'exec_dublagem', label: 'pr_dublagem', variant:'primary '},
-    { key: 'exec_cut', label: 'pr_corte', variant:'secondary '},
-    { key: 'exec_laser_holes', label: 'pr_furos_laser', variant:'success '},
-    { key: 'exec_laser_applique', label: 'pr_corte_aplique', variant:'warning '},
-    { key: 'exec_vies', label: 'pr_viés', variant:'danger '},
-    { key: 'exec_silk', label: 'pr_silk', variant:'info '},
-    { key: 'exec_peak', label: 'pr_aba', variant:'light '},
-    { key: 'exec_sublimation_applique', label: 'pr_sublim_aplique', variant:'primary '},
-    { key: 'exec_sublimation_forro', label: 'pr_sublim_forro', variant:'secondary '},
-
-    { key: 'seam_forro_front', label: 'co_forro_frente', variant:'success'},
-    { key: 'seam_side_back', label: 'co_lateral_traseira', variant:'warning '},
-    { key: 'seam_vies', label: 'co_viés', variant:'danger '},
-    { key: 'seam_peak', label: 'co_aba', variant:'info '},
-    { key: 'seam_fecho', label: 'co_fecho', variant:'light '},
-    { key: 'seam_swearband', label: 'co_carneira', variant:'primary '},
-    { key: 'seam_arremate', label: 'arremate', variant:'secondary '},
-    { key: 'seam_passadoria', label: 'passadoria', variant:'success '},
+    { key: 'exec_print', label: 'impresso'},
+    { key: 'exec_program_embroidery', label: 'programa_bordado'},
+    { key: 'exec_data_print_sublimation_applique', label: 'impressao_aplique'},
+    { key: 'exec_quant_print_sublimation_applique', label: 'quantidade'},
+    { key: 'exec_data_print_sublimation_forro', label: 'impressao_forro'},
+    { key: 'quant_print_sublimation_forro', label: 'metragem'},
+    { key: 'exec_separation', label: 'pr_Separação'},
+    { key: 'exec_dublagem', label: 'pr_dublagem'},
+    { key: 'exec_cut', label: 'pr_corte'},
+    { key: 'exec_laser_holes', label: 'pr_furos_laser'},
+    { key: 'exec_laser_applique', label: 'pr_corte_aplique'},
+    { key: 'exec_vies', label: 'pr_viés'},
+    { key: 'exec_silk', label: 'pr_silk'},
+    { key: 'exec_peak', label: 'pr_aba'},
+    { key: 'exec_sublimation_applique', label: 'pr_sublim_aplique'},
+    { key: 'exec_sublimation_forro', label: 'pr_sublim_forro'},
+    { key: 'seam_forro_front', label: 'co_forro_frente'},
+    { key: 'seam_side_back', label: 'co_lateral_traseira'},
+    { key: 'seam_vies', label: 'co_viés'},
+    { key: 'seam_peak', label: 'co_aba'},
+    { key: 'seam_fecho', label: 'co_fecho'},
+    { key: 'seam_swearband', label: 'co_carneira'},
+    { key: 'seam_arremate', label: 'arremate'},
+    { key: 'seam_passadoria', label: 'passadoria'},
 ]
 
-const items = [
+const itemsData = [
     {
         status_order: 'Prosseguindo',
         sales_man: 'Mauricio',
@@ -55,7 +53,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -72,7 +69,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -96,7 +92,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -113,7 +108,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -137,7 +131,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -154,7 +147,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -178,7 +170,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -195,7 +186,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -219,7 +209,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -236,7 +225,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -260,7 +248,6 @@ const items = [
         sales_sublimation_body: 'sim',
         sales_vies: 'sim',
         sales_forro: 'não',
-
         exec_print: '2021/10/05 25:10:20',
         exec_program_embroidery: '2021/10/05',
         exec_data_print_sublimation_applique: '2021/10/05',
@@ -277,7 +264,6 @@ const items = [
         exec_peak: '2021/10/05',
         exec_sublimation_applique: '2021/10/05',
         exec_sublimation_forro: '2021/10/05',
-    
         seam_forro_front: '2021/10/05',
         seam_side_back: '2021/10/05',
         seam_vies: '2021/10/05',
@@ -289,6 +275,61 @@ const items = [
     }
 ]
 
+
+const rowVariantTemplate = (element) =>{
+    element._cellVariants = {exec_program_embroidery:'info'}
+    element._cellVariants = {exec_data_print_sublimation_applique:'success'}
+    element._cellVariants = {exec_quant_print_sublimation_applique:'danger'}
+    element._cellVariants = {exec_data_print_sublimation_forro:'danger'}
+    element._cellVariants = {quant_print_sublimation_forro:'danger'}
+    element._cellVariants = {exec_separation:'warning'}
+    element._cellVariants = {exec_dublagem:'primary'}
+    element._cellVariants = {exec_cut:'secondary'}
+    element._cellVariants = {exec_laser_holes:'success'}
+    element._cellVariants = {exec_laser_applique:'warning'}
+    element._cellVariants = {exec_vies:'danger'}
+    element._cellVariants = {exec_silk:'info'}
+    element._cellVariants = {exec_peak:'light'}
+    element._cellVariants = {exec_sublimation_applique:'primary'}
+    element._cellVariants = {exec_sublimation_forro:'secondary'}
+    element._cellVariants = {seam_forro_front:'success'}
+    element._cellVariants = {seam_side_back:'warning'}
+    element._cellVariants = {seam_vies:'danger'}
+    element._cellVariants = {seam_peak:'info'}
+    element._cellVariants = {seam_fecho:'light'}
+    element._cellVariants = {seam_swearband:'primary'}
+    element._cellVariants = {seam_arremate:'secondary'}
+    element._cellVariants = {seam_passadoria:'success'}
+}
+
+const itemsModify = (itemsDatas) =>{
+    itemsDatas.forEach(element => {
+        if(element.status_order == 'Prosseguindo'){
+            rowVariantTemplate(element)
+            element._cellVariants= { status_order: 'success'}
+        } 
+        if(element.status_order == 'Alerta'){
+            rowVariantTemplate(element)
+            element._cellVariants= {status_order: 'warning '}
+        } 
+        if(element.status_order == 'Atrasado'){
+            element._rowVariant='danger'
+        } 
+        if(element.status_order == 'Finalizado'){
+            element._rowVariant='primary'
+        } 
+        if(element.status_order == 'Entregue'){
+            element._rowVariant='success '
+        } 
+        if(element.status_order == 'Cancelado'){
+            element._rowVariant='dark'
+        }
+    })
+
+    return itemsDatas
+}
+
+const items = itemsModify(itemsData)
 
 
 export default {Fields, items};

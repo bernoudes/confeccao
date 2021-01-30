@@ -1,7 +1,7 @@
 <template>
     <div class="showOrdersTable">
-        <b-table sticky-header bordered class="table text-center text-nowrap"
-            striped :fields="orders.fields" :items="orders.items" small >
+        <b-table id="idTable" sticky-header bordered class="table text-center text-nowrap"
+            striped :fields="orders.fields" :items="orders.items" small>
 
         </b-table>
     </div>
@@ -21,30 +21,36 @@ export default {
             }
         }
     },
-    mounted(){
-        this.orders.items.forEach(element => {
-            if(element.status_order == 'Prosseguindo'){
-                element._cellVariants= { status_order: 'success'}
-            } 
-            if(element.status_order == 'Alerta'){
-                element._cellVariants= {status_order: 'warning '}
-            } 
-            if(element.status_order == 'Atrasado'){
-                element._rowVariant='danger'
-            } 
-            if(element.status_order == 'Finalizado'){
-                element._rowVariant='primary '
-            } 
-            if(element.status_order == 'Entregue'){
-                element._rowVariant='success '
-            } 
-            if(element.status_order == 'Cancelado'){
-                element._rowVariant='dark'
-            }
-        });
+    methods:{
+        testing(test){
+            console.log(test)
+        }
+    },
+    watch:{
+        'idTable'() {
+            this.orders.items.forEach(element => {
+                if(element.status_order == 'Prosseguindo'){
+                    element._cellVariants= { status_order: 'success'}
+                } 
+                if(element.status_order == 'Alerta'){
+                    element._cellVariants= {status_order: 'warning '}
+                } 
+                if(element.status_order == 'Atrasado'){
+                    element._rowVariant='danger'
+                } 
+                if(element.status_order == 'Finalizado'){
+                    element._rowVariant='primary'
+                } 
+                if(element.status_order == 'Entregue'){
+                    element._rowVariant='success '
+                } 
+                if(element.status_order == 'Cancelado'){
+                    element._rowVariant='dark'
+                }
+            })
+            console.log('hum')
+        }
     }
-
-
 }
 </script>
 
