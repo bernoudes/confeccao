@@ -2,29 +2,59 @@
     <div class="showOrders">
         <h1>Pedidos</h1>
         <b-form class="b_form">
-            <div class="gr_searchByDate">
+            <div class="gr_filterType">
+                <div class="selectForm">
+                    <label>Tipo</label>
+                    <b-form-select
+                        id="filter_Type"
+                        ref="filter_Type"
+                        :options="typeFilter"
+                        :value="typeFilter[0]"
+                        @change="filterTable"
+                        class="b_form_select">
+                    </b-form-select>
+                </div>
+            </div>
+
+            <div class="gr_filterStatus">
+                <div class="selectForm">
+                    <label>Estado</label>
+                    <b-form-select
+                        id="filter_Status"
+                        ref="filter_Status"
+                        class="b_form_select"
+                        :options="statusFilter"
+                        :value="statusFilter[0]">
+                    </b-form-select>
+                </div>
+            </div>
+
+            <div class="gr_filterMonth">
                 <div class="selectForm">
                     <label>Meses</label>
                     <b-form-select
-                        id="form_month" 
-                        ref="form_month"
+                        id="filter_month" 
+                        ref="filter_month"
                         class="b_form_select"
                         :options="monthTemplate"
                         :value="1">
                     </b-form-select>
                 </div>
+            </div>
+
+            <div class="gr_filterYear">
                 <div class="selectForm">
                     <label>Anos</label>
                     <b-form-select
-                        id='form_year'
-                        ref="form_year"
+                        id='filter_year'
+                        ref="filter_year"
                         class="b_form_select"
                         :options="yearTemplate"
                         :value="yearTemplate[0]">
                     </b-form-select>
                 </div>
-                <b-button class="fa fa-search " @click="searchByData"></b-button>
             </div>
+
             <div class="gr_searchByCPF">
                 <label> ClienteCpf </label>
                 <div class='gr_searchByCPF_inter'>
@@ -39,7 +69,7 @@
             </div>
         </b-form>
 
-        <ShowOrdersTable/>
+        <ShowOrdersTable :filter="filter"/>
     </div>
 </template>
 
@@ -52,7 +82,10 @@ export default {
     data(){
         return{
             monthTemplate:[1,2,3,4,5,7,8,9,10,11,12],
-            yearTemplate:[]
+            yearTemplate:[],
+            typeFilter:['Ambos','Pilotos','Produção'],
+            statusFilter:['Todos','Prosseguindo', 'Alerta','Atrasado','Finalizado','Entregue','Cancelado'],
+            filter:{}
         }
     },
     methods:{
@@ -61,6 +94,17 @@ export default {
                 this.yearTemplate.push(count)
             }      
         },
+
+        filterTable(){
+            const newFilter = { 
+                filtetType: this.$refs.filter_Type.localValue,
+                filterStatus: this.$refs.filter_Status.localValue,
+                filterMonth: this.$refs.filter_month.localValue,
+                filterYear: this.$refs.filter_year.localValue
+            }
+            this.filter = newFilter;
+        },
+
         searchByData(event){
             event.preventDefault()
             console.log(this.$refs.form_month.localValue)
@@ -102,14 +146,10 @@ export default {
         height: 35px;
     }
 
-    /*SEARCH BY DATE*/
-    .showOrders .gr_searchByDate{
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        margin-right: 20px;
+    .showOrders .gr_filterYear{
+        margin-right: auto;
     }
-    
+
     /*SEARCH BY CPF*/
     .showOrders .gr_searchByCPF_inter{
         display: flex;
