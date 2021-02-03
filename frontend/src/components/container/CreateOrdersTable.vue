@@ -7,7 +7,8 @@
         </div>
 
         <template>
-            <b-table sticky-header striped :fields="orders.fields" :items="orders.items" bordered>
+            <b-table sticky-header striped :fields="orders.fields" :items="orders.items" bordered
+                class="text-center">
                 <template #cell(product)="row">
                     <b-form-input v-model="row.item.product"></b-form-input>
                 </template>
