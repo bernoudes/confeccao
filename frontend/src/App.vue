@@ -38,4 +38,15 @@ export default {
     grid-template-rows: 50px 1fr 20px;
     grid-template-columns: 200px 1fr;
   }
+
+  /*SELECT BOX CONFIG*/
+   .selectForm{
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px
+    }
+
+    .b_form_select{
+        height: 35px;
+    }
 </style>
