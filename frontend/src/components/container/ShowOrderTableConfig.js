@@ -119,7 +119,7 @@ const itemsData = filter =>{
             cd_production: 'J58483-01/02',
             sales_price_unity: 'R$ 500,00',
             sales_quantity_products: '200',
-            sales_embroidery: 'sim',
+            sales_embroidery: 'não',
             sales_silk: 'não',
             sales_laser_applique: 'sim',
             sales_laser_holes: 'sim',

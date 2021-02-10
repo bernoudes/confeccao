@@ -7,12 +7,13 @@
             </template>
         </b-table>
 
-        <EditOrders class="editOrders"  name="ShowOrders_editorOrders"
-            :item="selectedItem"/>
+        <EditOrders class="editOrders dl-none" ref='reEditOrders'/>
+       
     </div>
 </template>
 
 <script>
+ 
 
 import ShowOrdersTableConfig from './ShowOrderTableConfig.js'
 import EditOrders from './EditOrders'
@@ -22,11 +23,10 @@ export default {
     data(){
         return{
             orders:{
-                selectedItem: null,
+                selectedItem:{},
                 items: ShowOrdersTableConfig.items(this.filter),
                 fields: ShowOrdersTableConfig.Fields
-            },
-            editorHtml:'hfdh'
+            }
         }
     },
     components:{ EditOrders },
@@ -35,12 +35,15 @@ export default {
     },
     methods:{
         usable(){
-            console.log('kasa hitotsu')
+           
         },
         editConfg(row){
-            this.selectedItem = row.item;
-            const editOrdersElement = document.getElementsByName('ShowOrders_editorOrders')[0]
-            editOrdersElement.style.display = "initial"
+            const reEditOrders = this.$refs.reEditOrders
+            reEditOrders.createBox(this.orders.items[row.index])
+        },
+        updateTable(){
+            this.orders.selectedItem = {}
+            console.log('update table open')
         }
     },
     watch:{
