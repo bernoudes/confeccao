@@ -5,6 +5,7 @@ import Home from '../components/container/Home'
 import RegisterCustomer from '../components/container/RegisterCustomer'
 import CreateOrders from '../components/container/CreateOrders'
 import ShowOrders from '../components/container/ShowOrders'
+import SalesMan from '../components/container/SalesMan'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
         name: 'ShowOrders',
         path: '/ShowOrders',
         component: ShowOrders
+    },
+    {
+        name: 'SalesMan',
+        path: '/SalesMan',
+        component: SalesMan
     }
 ]
 
