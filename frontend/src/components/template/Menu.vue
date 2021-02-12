@@ -4,7 +4,7 @@
         <span @click="createOrders">Criação de Pedidos </span>
         <span @click="showOrders">Pedidos</span>
         <!--below is for admin only -->
-        <span>Vendedores</span>
+         <span @click='salesMan'> Vendedores </span>
         <span>Gráficos</span>
     </div>
 </template>
@@ -29,6 +29,12 @@ export default {
             event.preventDefault()
             if(this.$router.history.current.name != 'ShowOrders'){
                 this.$router.push({name:'ShowOrders'})
+            }
+        },
+        salesMan(event){
+            event.preventDefault()
+            if(this.$router.history.current.name != 'SalesMan'){
+                this.$router.push({name: 'SalesMan'})
             }
         }
     }
