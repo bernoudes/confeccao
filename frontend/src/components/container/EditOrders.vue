@@ -6,7 +6,7 @@
             <div class="selectForm">
                 <label>Estado</label>
                 <b-form-select
-                    id='selEstado'
+                    ref='selEstado'
                     class="b_form_select"
                     :options="selectOption"
                     :value="selectOption[0]"
@@ -47,17 +47,21 @@ export default {
     data(){
         return{
             itemMod: {},
-            selectOption:['Manter','Enviado','Cancelar']
+            selectOption:['Manter','Entregue','Cancelar']
         }
     },
     methods:{
         createBox(item){
             if(item.status_order != undefined && item.status_order != '¨'){
                 this.itemMod = EditOrdersConfig.itemInPrimaryValue(item)
-              /*  if(itemMod.status_order == 'Cancelado'){
+                if(this.itemMod.status_order == 'Cancelado'){
+                    this.$refs.selEstado.localValue = this.selectOption[2]
+                } else if (this.itemMod.status_order == 'Entregue'){
+                    this.$refs.selEstado.localValue = this.selectOption[1]
+                } else{
+                    this.$refs.selEstado.localValue = this.selectOption[0]
+                }
 
-                }*/
-                document
                 this.$el.style.display = 'initial'
             } else {
                 this.close()
@@ -65,15 +69,15 @@ export default {
         },
         save(){
             console.log(this.itemMod)
-           // this.close()
+            this.close()
         },
         cancel(){
+            this.$parent.updateTable()
             this.close()
         },
         close(){
             this.$el.style.display = 'none'
-            this.itemMod = {}
-            this.$parent.updateTable()
+            this.itemMod = {} 
         }
     },
 
