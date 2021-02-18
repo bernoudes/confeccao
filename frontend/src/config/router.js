@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Home from '../components/container/Home'
-import RegisterCustomer from '../components/container/RegisterCustomer'
-import CreateOrders from '../components/container/CreateOrders'
-import ShowOrders from '../components/container/ShowOrders'
-import SalesMan from '../components/container/SalesMan'
+import Home from '../components/container/home/Home'
+import RegisterCustomer from '../components/container/customers/RegisterCustomer'
+import CreateOrders from '../components/container/createOrders/CreateOrders'
+import ShowOrders from '../components/container/showOrders/ShowOrders'
+import SalesMan from '../components/container/salesMan/SalesMan'
 
 Vue.use(VueRouter)
 
@@ -17,12 +17,12 @@ const routes = [
     },
     {
         name: 'registerCustomer',
-        path:'/registerCustomer',
+        path:'/RegisterCustomer',
         component: RegisterCustomer
     },
     {
         name: 'CreateOrders',
-        path: '/createOrders',
+        path: '/CreateOrders',
         component: CreateOrders
     },
     {

@@ -49,4 +49,14 @@ export default {
     .b_form_select{
         height: 35px;
     }
+    /*CHILD COMMOM BOX CONFIG*/
+    .childCommomConfg{
+       position: absolute;
+        height: auto;
+        padding: 5px 20px;
+        background-color: white;
+        border-style: solid;
+        border-color: rgb(200,200,200);
+        z-index:8;
+    }
 </style>
