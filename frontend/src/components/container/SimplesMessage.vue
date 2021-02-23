@@ -29,7 +29,7 @@ export default {
     methods:{
         CreateBox(){
             this.$el.style.display = 'initial'
-          //  console.log(this.$parent)
+            console.log(this.$el.style)
         }
     },
     mounted(){
@@ -41,6 +41,7 @@ export default {
 <style>
     .simpleMessage{
         width: auto;
+        margin-top: 50px;
     }
     .simpleMessage > .buttonArea{
         display: flex;
