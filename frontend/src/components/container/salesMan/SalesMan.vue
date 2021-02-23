@@ -3,6 +3,7 @@
         <h2>Vendedores</h2>
         <SimplesMessage ref="refDeleteSales" :message="messageDelete" 
             okLabel="Sim" notLabel="Não" :okFunction="deleteSales"/>
+        <SalesManInfo ref="refSalesManInfo"/>
         <b-form>
             <div class="SalesManForm">
                 <div class="selectForm">
@@ -12,12 +13,11 @@
                         ref="state"
                         :options="selectedState"
                         :value="selectedState[0]"
-                        :disabled="enable.inptState"
+                        :disabled="disabled.inptState"
                     >
                     </b-form-select>
                 </div>
-                 <b-button @click="MessageDelete()" class="tamButton" 
-                    ref="tamButton" :disabled="enable.buAdd">
+                 <b-button @click="addSalesMan()" class="tamButton" ref="tamButton" :disabled="disabled.buAdd">
                     Adicionar
                 </b-button>
             </div>
@@ -29,37 +29,42 @@
 <script>
 import SalesManTable from './SalesManTable'
 import SimplesMessage from '../SimplesMessage' 
+import SalesManInfo from './SalesManInfo'
 
 export default {
     name:'SalesMan',
     data(){
         return{
-            enable:{ inptState: false,buAdd: false },
+            disabled:{ inptState: false,buAdd: false },
             selectedState: ['Ativos', 'Desativados', 'Ambos'],
             messageDelete: 'Tem Certeza que deseja excluir'
         }
     },
-    components:{ SalesManTable, SimplesMessage },
+    components:{ SalesManTable, SimplesMessage, SalesManInfo },
     methods:{
-        add(){
-
+        addSalesMan(){
+            this.$refs.refSalesManInfo.CreateBox()
         },
         deleteSales(){
             console.log(this.$refs.state) 
         },
         MessageDelete(){
             this.$refs.refDeleteSales.CreateBox()
+            this.disableAll(true)
         },
 
-        /////THE FUNCTION FOLLOWING, DON'T USE DIRECTLY/////
+        /////THE METHODS FOLLOWING, DON'T USE DIRECTLY/////
+        reLoad(){
+
+        },
         disableAll(value){
             console.log(this)
             if(value == true || value == false){
-                this.enable.inptState = value
-                this.enable.buAdd = value
+                this.disabled.inptState = value
+                this.disabled.buAdd = value
             } else {
-                this.enable.inptState = true
-                this.enable.buAdd = true
+                this.disabled.inptState = true
+                this.disabled.buAdd = true
             }
         }
     }
