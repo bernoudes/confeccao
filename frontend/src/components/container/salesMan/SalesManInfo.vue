@@ -4,36 +4,80 @@
             <h4>Cadastro de Vendedores</h4>
             <div id="name">
                 <label>Nome</label>
-                <b-form-input>
+                <b-form-input v-model="salesman.name" placeholder="Digite o Nome">
                 </b-form-input>
             </div>
             <div id="cpf">
                 <label>Cpf</label>
-                <b-form-input>
+                <b-form-input v-model="salesman.cpf" placeholder="Digite o Cpf" @keypress="notNumber">
                 </b-form-input>
             </div>
-            <b-form-checkbox class="checkAdmin">Adminstrador</b-form-checkbox>
+            <b-form-checkbox class="checkAdmin" v-model="salesman.admin">Adminstrador</b-form-checkbox>
             <div id="login">
                 <label>Login</label>
-                <b-form-input>
+                <b-form-input v-model="salesman.login" placeholder="Digite o Login">
                 </b-form-input>
             </div>
             <div id="password">
                 <label>Senha</label>
-                <b-form-input>
+                <b-form-input v-model="salesman.password" placeholder="Digite a Senha">
                 </b-form-input>
             </div>
             <div class="buttons">
-                <b-button variant="primary">Salvar</b-button>
-                <b-button variant="danger">Cancelar</b-button>
+                <b-button variant="primary" @click="Save()">Salvar</b-button>
+                <b-button variant="danger" @click="Close()">Cancelar</b-button>
             </div>
         </b-form>
     </div>
 </template>
 
 <script>
-export default {
+import salesManConn from './SalesManConn'
 
+export default {
+    data(){
+        return{
+            salesman:{
+                name: '',
+                cpf: '',
+                login: '',
+                password: '',
+                admin: false
+            }
+        }
+    },
+    methods:{
+        CreateBox(){
+            this.$el.style.display = 'initial'
+        },
+        Save(){
+            salesManConn.save(this.salesman)
+            try{
+                this.$parent.reLoad()
+            } catch(err){
+                //put html message in the parent, position absolute
+               // this.$parent.'<b-alert>Show Alert</b-alert>'
+            }
+            this.Close
+        },        
+        Close(){
+            this.salesman.name =  ''
+            this.salesman.cpf =  ''
+            this.salesman.login =  ''
+            this.salesman.password =  ''
+            this.salesman.admin =  false
+            this.$el.style.display = 'none'
+        },
+        notNumber(event){
+            if(isNaN(event.key) || event.key == ' '){
+            event.preventDefault()
+        }
+}
+
+    },
+    mounted(){
+        this.$el.style.display = 'none'
+    }
 }
 </script>
 
