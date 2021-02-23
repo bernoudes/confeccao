@@ -1,13 +1,13 @@
 <template>
     <div class="salesManTable">
-        <b-table bordered :fields="salesMan.fields" :items="salesMan.items" 
-            class="table text-center text-nowrap" small striped sticky-header>
+        <b-table bordered :fields="salesMan.fields" :items="salesMan.items"
+            class="table text-center text-nowrap" small striped :sticky-header="!disabled.table">
 
-            <template #cell(delete) ="row">
+            <template #cell(delete) ="row" >
                 <i class="fa fa-trash fa-2x" @click="showInfo(row)"></i>
             </template>
-            <template #cell(details)="row">
-                <i class="fa fa-address-card fa-2x" @click="deleteSales(row)"></i>
+            <template #cell(details)="row" >
+                <i class="fa fa-address-card fa-2x"  disabled @click="deleteSales(row)"></i>
             </template>
         </b-table>
     </div>
@@ -17,6 +17,7 @@
 export default {
     data(){
         return{
+            disabled:{ table: true },
             salesMan: {
                 items: [
                     { name: 'morgana', mounth: '25.000', year:'36.000'},
@@ -45,8 +46,25 @@ export default {
         }
     },
     methods:{
-        showInfo(){},
-        deleteSales(){}
+        showInfo(){
+            if(this.disabled.table == false){
+                console.log('show')
+            }
+        },
+        deleteSales(){
+            if(this.disabled.table == false){
+                console.log('delete')
+            }
+        },
+        /////THE FUNCTION FOLLOWING, DON'T USE DIRECTLY/////
+        disableAll(){
+            this.disabled.table = true
+           /* if(value == true || value == false){
+                refSalesManTable
+            } else {
+
+            }*/
+        }
     }
 }
 </script>
@@ -55,6 +73,7 @@ export default {
     .salesManTable{
         margin-top: 10px;
         height: 400px;
+        overflow:hidden;
     }
 
     .salesManTable > .table{
