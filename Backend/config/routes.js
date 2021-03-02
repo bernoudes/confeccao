@@ -21,10 +21,11 @@ module.exports = app => {
         .post(app.api.customers.save)
         .get(app.api.customers.get)
 
-    app.route('/customers/:id')
+    app.route('/customers/:cpf')
         .put(app.api.customers.save)
-        .get(app.api.customers.getById)
+        .get(app.api.customers.getByCpf)
         .delete(app.api.customers.remove)
+
 
     //actions about orders (admin and salesman can create but only adim can remove)
     app.route('/orders')

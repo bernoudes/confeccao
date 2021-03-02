@@ -1,19 +1,21 @@
 --here all validations and automations have been created for inclusion in the tables
 ---------------------------------------------------------------------------
-CREATE FUNCTION create_customers(name VARCHAR(40), cpf VARCHAR(20),name_brand VARCHAR(40))
+CREATE FUNCTION create_customers(name VARCHAR(40), cpf2 VARCHAR(20),name_brand VARCHAR(40))
 	RETURNS text
 	LANGUAGE plpgsql
 	AS $$
 	BEGIN
 		IF(name IS NULL) OR (length(name) <= 2) THEN
 			RETURN 'error_name';
-		ELSEIF (cpf IS NOT NULL) AND (length(cpf)< 11) THEN
+		ELSEIF (cpf2 IS NOT NULL) AND (length(cpf2)< 11) THEN
+			RETURN 'error_cpf';
+		ELSEIF (SELECT EXISTS(SELECT cpf from customers WHERE cpf = cpf2 )) THEN
 			RETURN 'error_cpf';
 		ELSEIF (name_brand IS NULL) OR (length(name_brand) <= 0) THEN
 			RETURN 'error_name_brand';
 		END IF;
 		
-		INSERT INTO customers (name, cpf,name_brand) VALUES (name, cpf,name_brand);
+		INSERT INTO customers (name, cpf,name_brand) VALUES (name, cpf2,name_brand);
 		RETURN 'success';
 	END;
 $$;

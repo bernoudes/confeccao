@@ -1,106 +1,92 @@
 <template>
     <div class="salesManInfo">
-        <b-form>
-            <h4>Cadastro de Vendedores</h4>
-            <div id="name">
-                <label>Nome</label>
-                <b-form-input v-model="salesman.name" placeholder="Digite o Nome">
-                </b-form-input>
-            </div>
-            <div id="cpf">
-                <label>Cpf</label>
-                <b-form-input v-model="salesman.cpf" placeholder="Digite o Cpf" @keypress="notNumber">
-                </b-form-input>
-            </div>
-            <b-form-checkbox class="checkAdmin" v-model="salesman.admin">Adminstrador</b-form-checkbox>
-            <div id="login">
-                <label>Login</label>
-                <b-form-input v-model="salesman.login" placeholder="Digite o Login">
-                </b-form-input>
-            </div>
-            <div id="password">
-                <label>Senha</label>
-                <b-form-input v-model="salesman.password" placeholder="Digite a Senha">
-                </b-form-input>
-            </div>
-            <div class="buttons">
-                <b-button variant="primary" @click="Save()">Salvar</b-button>
-                <b-button variant="danger" @click="Close()">Cancelar</b-button>
-            </div>
-        </b-form>
+        <SalesManCreate ref="refSalesManCreate"/>
+
+        <h4>Informações</h4>
+        <p>Nome: {{salesinfo.name}}</p>
+        <p>Cpf: {{salesinfo.cpf}} </p>
+        <p>admin: {{salesinfo.admin}} </p>
+        <p>login: {{salesinfo.login}} </p>
+        <p>password: {{salesinfo.password}} </p>
+        <div class="tableLimit">
+            <b-table sticky-header class="text-nowrap table" :fields="table.fields" :items="table.items" small>
+            </b-table>
+        </div>
+        
+        <div class="button-group">
+            <b-button variant="primary" @click="update()">Alterar</b-button>
+            <b-button variant="danger" @click="close()">Fechar</b-button>
+        </div>
     </div>
 </template>
 
 <script>
-import salesManConn from './SalesManConn'
+import SalesManCreate from './SalesManCreate'
 
 export default {
     data(){
         return{
-            salesman:{
+            salesinfo:{
                 name: '',
                 cpf: '',
+                admin: '',
                 login: '',
-                password: '',
-                admin: false
+                password: ''
+            },
+            table:{
+                fields:[
+                    { key: 'mounth', label: 'Mês'},
+                    { key: 'year', label: 'Ano'},
+                    { key: 'mounthValue', label: 'Total Meses' },
+                ],
+                items:[
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                    { mounth:'02', year:'2019', mounthValue:'R$: 661,00' },
+                ]
             }
         }
     },
+
+    components:{ SalesManCreate },
     methods:{
         CreateBox(){
             this.$el.style.display = 'initial'
         },
-        Save(){
-            salesManConn.save(this.salesman)
-            try{
-                this.$parent.reLoad()
-            } catch(err){
-                //put html message in the parent, position absolute
-               // this.$parent.'<b-alert>Show Alert</b-alert>'
-            }
-            this.Close
-        },        
-        Close(){
-            this.salesman.name =  ''
-            this.salesman.cpf =  ''
-            this.salesman.login =  ''
-            this.salesman.password =  ''
-            this.salesman.admin =  false
-            this.$el.style.display = 'none'
+        update(){
+            console.log(this.$refs) 
+            this.$refs.refSalesManCreate.CreateBox(false)
         },
-        notNumber(event){
-            if(isNaN(event.key) || event.key == ' '){
-            event.preventDefault()
+        close(){
+            this.$el.style.display = 'none'
         }
-}
-
     },
     mounted(){
-        this.$el.style.display = 'none'
+     //   this.$el.style.display = 'none'
     }
 }
 </script>
 
 <style>
-    .salesManInfo{
-        position: absolute;
-        height: auto;
-        width: 400px;
-        padding: 5px 20px;
-        background-color: white;
-        border-style: solid;
-        border-color: rgb(200,200,200);
-        z-index:8;
+    .salesManInfo > .tableLimit{
+        height: 200px;
+      /*  overflow:hidden;*/
+    }
+    .salesManInfo > .tableLimit > .table{
+        max-height: 100%;
     }
 
-    .salesManInfo .checkAdmin{
-        margin:10px;
-    }
-
-    .salesManInfo .buttons{
-        display:flex;
+    .salesManInfo > .button-group{
+        display: flex;
         justify-content: space-between;
-        padding: 0px 20px;
-        margin: 20px 20px 10px 20px;
+        margin-top: 5px;
+        padding: 10px 40px;
     }
 </style>

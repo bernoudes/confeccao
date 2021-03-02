@@ -1,35 +1,48 @@
 <template>
-    <!-- this box is diferent from others because is created by using independt of the parent
-         so, the props is (message: 'string', okLabel: 'string', notLabel:'string', okFunction:'function',
-    notFunction:'function')-->
-    <div class="simpleMessage childCommomConfg">
-        <label>{{message}}</label>
-        <div class="buttonArea">
-            <b-button variant="primary">{{okLabel}}</b-button>
-            <b-button variant="danger">{{notLabel}}</b-button>
+    <!-- for use this box is necessary with the parent have a enabledElements and disabledElements-->
+    <div class="childCommomConfg simpleMessage" 
+        :style="`margin-top: ${posY}px; margin-left: ${posX}px;` ">
+
+        <div class="elements">
+            <div>
+                <h4>{{label}}</h4>
+                <p>{{message}}</p>
+            </div>
+            <b-button class=" buttonClose fa fa-window-close" variant='danger' @click="Close()"></b-button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    props:{
-        message:{},
-        okLabel:{},
-        notLabel:{},
-        okFunction:{},
-        notFunction:{}
-    },
     data(){
         return{
-            message2: 'do some',
-            update: 'false'
+            posX: 0,
+            posY: 0,
+            message:'',
+            label:'',
         }
     },
     methods:{
-        CreateBox(){
-            this.$el.style.display = 'initial'
-            console.log(this.$el.style)
+        CreateBox(posX, posY, label, message){
+            if(this.$parent.disabledElements && this.$parent.enabledElements){
+                this.$parent.disabledElements()
+
+                this.posX = posX
+                this.posY = posY
+                this.label = label
+                this.message = message
+
+                this.$el.style.display = 'initial'
+            }
+        },
+        Close(){
+            this.$parent.enabledElements()
+            this.posX = 0
+            this.posY = 0
+            this.message = ''
+            this.label = ''
+            this.$el.style.display = 'none'
         }
     },
     mounted(){
@@ -41,11 +54,15 @@ export default {
 <style>
     .simpleMessage{
         width: auto;
-        margin-top: 50px;
     }
-    .simpleMessage > .buttonArea{
+    .simpleMessage > .elements{
         display: flex;
-        justify-content: space-between;
-        margin: 10px 30px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .simpleMessage > .elements > .buttonClose{
+        margin-left: 20px;
+        height: 40px;
     }
 </style>

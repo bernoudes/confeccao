@@ -24,27 +24,28 @@ module.exports = app => {
             return
         }
         
-        
         if(!validatingCpf(customers.cpf)){
             res.status(400).send('invalidate_cpf')
             return
         }
 
         //creating a 
+        
         if(idput != undefined && !isNaN(idput)){
             await app.db('customers')
                 .update(customers)
                 .where({id: idput})
-                .then(ok => res.status(204).send('success'))
+                .then(ok => res.status(200).send('success'))
                 .catch(err => res.status(500).send('error_server'))
         } else {
+            console.log(`select create_customers('${customers.name}','${customers.cpf}', '${customers.name_brand}');`)
             app.db.raw(
                 `select create_customers('${customers.name}','${customers.cpf}', '${customers.name_brand}');`)
                 .then(customersRes => {
-                    if(customersRes == 'error_cpf'){
-                        res.status(400).send('exists_cpf')
+                    if(customersRes.rows[0].create_customers == 'error_cpf'){
+                        res.send('exists_cpf')
                     } else {
-                        res.status(204).send('success')
+                        res.send('success')
                     }
                 })
                 .catch(err => res.status(500).send('error_server'))
@@ -73,25 +74,34 @@ module.exports = app => {
     }
 
     //----------------------------------------------
-    const getById = async(req, res) =>{
-        const idput = req.params.id
+    const getByCpf = async(req,res) => {
+        const idput = req.params.cpf
+
+        console.log('chegando aqui carai')
+        console.log(idput)
+
+
+        if(!validatingCpf(idput)){
+            res.send('invalidate_cpf')
+            return
+        }
         if(idput != undefined && !isNaN(idput)){
             await app.db('customers')
-                .select('name','cpf','name_brand','credit')
-                .where({isdeleted: false})
-                .where({id: idput})
+                .select('name','cpf', 'name_brand')
+                .where({ cpf: idput})
                 .then(customer => {
                     if(customer.length == 0){
-                        res.status('400').send('invalidate_id')
+                        res.send('invalidate_cpf')
                     } else {
                         res.json(customer)
                     }
                 })
                 .catch(err => res.status(500).send('error_server'))
         } else {
-            res.status('400').send('error_id')
+            res.status('400').send('error_cpf')
         }
     }
+
 
     //----------------------------------------------
     const remove = async(req, res) => {
@@ -105,7 +115,7 @@ module.exports = app => {
         } else {
             res.status(400).send('error_id')
         }
-    }
+    } 
 
-    return {save, get, getById, remove}
+    return {save, get, getByCpf, remove}
 }

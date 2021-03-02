@@ -3,6 +3,7 @@
         <h2>Vendedores</h2>
         <SimplesMessage ref="refDeleteSales" :message="messageDelete" 
             okLabel="Sim" notLabel="Não" :okFunction="deleteSales"/>
+        <SalesManCreate ref="refSalesManCreate"/>
         <SalesManInfo ref="refSalesManInfo"/>
         <b-form>
             <div class="SalesManForm">
@@ -29,6 +30,7 @@
 <script>
 import SalesManTable from './SalesManTable'
 import SimplesMessage from '../SimplesMessage' 
+import SalesManCreate from './SalesManCreate'
 import SalesManInfo from './SalesManInfo'
 
 export default {
@@ -40,10 +42,10 @@ export default {
             messageDelete: 'Tem Certeza que deseja excluir'
         }
     },
-    components:{ SalesManTable, SimplesMessage, SalesManInfo },
+    components:{ SalesManTable, SimplesMessage, SalesManCreate, SalesManInfo },
     methods:{
         addSalesMan(){
-            this.$refs.refSalesManInfo.CreateBox()
+            this.$refs.refSalesManCreate.CreateBox(true)
         },
         deleteSales(){
             console.log(this.$refs.state) 

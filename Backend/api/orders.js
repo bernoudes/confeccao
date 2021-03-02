@@ -5,6 +5,8 @@ module.exports = app => {
         const orders = { ...req.body }
         const idput = req.params.id
 
+        console.log(orders)
+
         const { validateSalesman,validateCustomer } = validateExis//exporting the promises
 
         //validating information 
