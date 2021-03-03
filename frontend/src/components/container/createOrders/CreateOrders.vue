@@ -93,7 +93,8 @@ export default {
             this.customer.name = '',
             this.customer.cpf = '',
             this.customer.name_brand = ''
-            this.tableDisabled = false
+            this.customer.inputcpf = ''
+            this.tableDisabled = true
             this.$refs.reCreateOrderTable.resetData()
         },
         notNumber(event){

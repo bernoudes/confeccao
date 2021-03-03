@@ -5,8 +5,9 @@
             <p> Nome: {{order.customer != undefined ? order.customer.name:''}} </p>
             <p> Cpf: {{order.customer != undefined ? order.customer.cpf:''}} </p>
             <p> Nome da Marca: {{order.customer != undefined ? order.customer.name_brand:''}}</p>
-            <p> Vendedor: {{order.user != undefined ? order.user.name:''}}</p>
-            <p> Total do Pedido: {{order.sumvalues != undefined ? order.sumvalues:''}}</p>
+            <p> Vendedor: {{order.salesman != undefined ? order.salesman:''}}</p>
+            <p> Total de Peças: {{order.sumTotalQuant != undefined ? order.sumTotalQuant:''}}</p>
+            <p> Total do Pedido: R$ {{order.sumTotalPrices != undefined ? order.sumTotalPrices:''}},00</p>
         </div>
         <b-form class="forms">
             <div class="initialValue">
@@ -21,14 +22,17 @@
                 ,00
             </div>
             <div class="buttonpay">
-                <b-button variant="primary">Marcar Como Pago</b-button>
-                <b-button variant="danger"> Fechar</b-button>
+                <b-button variant="primary" @click="Pay">Marcar Como Pago</b-button>
+                <b-button variant="danger" @click="Closing"> Fechar</b-button>
             </div>
         </b-form>
     </div>
 </template>
 
 <script>
+import axios from 'axios'
+import conn from '../../../config/conn'
+
 export default {
     name: 'createOrdersPay',
     data(){
@@ -40,18 +44,36 @@ export default {
         }
     },
     methods:{
-        CreateBox(posX,posY,order){
+        CreateBox(order){
             if(this.$parent.disabledElements && this.$parent.enabledElements){
                 this.$parent.disabledElements()
 
-                this.posX = posX
-                this.posY = posY
                 this.order = order
+                console.log(order)
 
-                this.$el.style.display = 'initial'
+                if(this.order.customer != undefined){
+                    this.$el.style.display = 'initial'
+                }
             }
         },
+        Pay(){
+            axios.post(`${conn.backUrl}/orders`,this.order)
+            this.$parent.enabledElements()
+            this.Close()
+        },
+        Closing(){
+            this.$parent.enabledElements(true)
+            this.Close()
+        },
+        Close(){
+            this.resetData()
+            this.$el.style.display = 'none'
+        },
         /////////////////////////////////////////////
+        resetData(){
+            this.order = {},
+            this.initialValue = ''
+        },
         notNumber(event){
             if(isNaN(event.key) || event.key == ' '){
                 event.preventDefault()

@@ -1,7 +1,7 @@
 <template>
     <div class="createOrderTable mt-5">
         <CreateOrdersPay ref='reCreateOrdersPay'/>
-        <SimplesMessage ref='smgCreateOrdersPay'/>
+        <SimplesMessage ref='smgCreateTable'/>
 
         <div class="buttonNewEx">
             <b-button id="buAdd" @click="newItem" :disabled="disabled"> Adicionar </b-button>
@@ -81,7 +81,8 @@ export default {
             orders:{
                 items:[],
                 fields: orderFildes,
-            }
+            },
+            errorResetControl: false
         })
     },
     props:{
@@ -122,30 +123,39 @@ export default {
                             error = true
                         } else if(item.price_unity == undefined || item.quantity_products == undefined){
                             error = true
-                        } else {
+                        } else if(item.price_unity == '' || item.quantity_products == ''){
+                            error = true
+                        }
+                         else {
                             sumQuantCalc += parseInt(item.quantity_products)
-                            sumPriceCalc += parseInt(item.price_unity)
+                            sumPriceCalc += parseInt(item.price_unity) * parseInt(item.quantity_products)
                         }
                     })
 
                     if(error == true){
-                        this.$refs.smgCreateOrdersPay.CreateBox(0,0,'Erro','Algum número ou quantidade tem caracter não numerico')
-                        console.log(this.$refs.smgCreateOrdersPay)
+                        this.$refs.smgCreateTable.CreateBox(0,0,'Erro','Algum preço ou quantidade tem caracter não numerico')
+                        this.errorResetControl = true
                     } else{
                         const order = {
-                            user: conn.user,
+                            salesman: conn.user.name,
                             customer: this.customer,
-                            sumPrices: sumPriceCalc,
-                            sumQuant: sumQuantCalc,
+                            sumTotalPrices: sumPriceCalc,
+                            sumTotalQuant: sumQuantCalc,
                             items: this.orders.items
                         }
                         console.log(order)
+                        this.$refs.reCreateOrdersPay.CreateBox(order)
                     }
                 }
             }
         },
-        enabledElements(){
-            this.$parent.enabledElements(true)
+        enabledElements(notReset){
+            if(this.errorResetControl == true){
+                this.$parent.enabledElements(true)
+                this.errorResetControl = false
+            } else {
+                this.$parent.enabledElements(notReset)
+            }   
         },
         disabledElements(){
             this.$parent.disabledElements()

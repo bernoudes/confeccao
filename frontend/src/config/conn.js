@@ -1,6 +1,6 @@
 const backUrl = 'http://localhost:3030'
 const user = {
-    nome: 'Cristovão',
+    name: 'Cristovão',
     login:'nick_Dagteadan'
 }
 
