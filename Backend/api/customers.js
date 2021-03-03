@@ -77,10 +77,6 @@ module.exports = app => {
     const getByCpf = async(req,res) => {
         const idput = req.params.cpf
 
-        console.log('chegando aqui carai')
-        console.log(idput)
-
-
         if(!validatingCpf(idput)){
             res.send('invalidate_cpf')
             return
