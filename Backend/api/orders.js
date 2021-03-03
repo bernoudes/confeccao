@@ -35,7 +35,7 @@ module.exports = app => {
             res.status(400).send('invalidate_customers')
             return
         }
-
+/*
         if(idput != undefined && !isNaN(idput)){
              await app.db('orders')
                 .where({id: idput})
@@ -56,7 +56,7 @@ module.exports = app => {
                 CAST (${orders.money_all} AS MONEY));`)
             .then(respo => res.status(204).send('success'))
             .catch(err => res.status(500).send('error_server'))
-        }
+        }*/
     }
 
     //----------------------------------------------
