@@ -96,7 +96,7 @@ CREATE FUNCTION create_orders(salesman_id INTEGER, customers_id INTEGER, money_i
 		INSERT INTO orders (cd_orders,customers_id,salesman_id,money_input,money_all,date_begin)
 			VALUES (cd_new,customers_id,salesman_id,money_input,money_all,date_now);
 			
-		RETURN 'success';
+		RETURN (SELECT MAX(id) FROM orders);
 	END;
 $$;
 ---------------------------------------------------------------------------
