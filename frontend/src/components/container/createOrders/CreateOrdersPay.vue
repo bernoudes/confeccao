@@ -56,8 +56,16 @@ export default {
                 }
             }
         },
-        Pay(){
-            axios.post(`${conn.backUrl}/orders`,this.order)
+        async Pay(){
+            this.order.initialValue = this.initialValue
+            const result = await axios.post(`${conn.backUrl}/orders`,this.order)
+            if(result.status == 200 && !isNaN(result.data)){
+                this.order.items.forEach(item => {
+                    item.orders_id = result.data
+                    const mais = axios.post(`${conn.backUrl}/production`,item)
+                    console.log(mais)
+                })
+            }
             this.$parent.enabledElements()
             this.Close()
         },
