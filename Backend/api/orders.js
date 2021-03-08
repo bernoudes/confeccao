@@ -5,16 +5,14 @@ module.exports = app => {
         const orders = { ...req.body }
         const idput = req.params.id
 
-        console.log(orders)
-
-        const { validateSalesman,validateCustomer } = validateExis//exporting the promises
+        const { validateSalesmanByLogin, validateCustomerByCpf } = validateExis//exporting the promises
 
         //validating information 
         let errorInfo = ''
-        if(orders.money_input == undefined || orders.money_input < 0 ){
+        if(orders.initialValue == undefined || orders.initialValue < 0 ){
             errorInfo.concat('error_money_input-')
         }
-        if(orders.money_all == undefined || orders.money_all < 0){
+        if(orders.sumTotalPrices == undefined || orders.sumTotalPrices < 0){
             errorInfo.concat('error_money_all-')
         }
 
@@ -24,39 +22,45 @@ module.exports = app => {
         }
 
         //validating information in db
-        const validateSalesmen = await validateSalesman(orders.salesman_id, app)
-        if(validateSalesmen == undefined){
+        const salesmenId = await validateSalesmanByLogin(orders.salesmanLogin, app)
+        if(salesmenId == undefined){
             res.status(400).send('invalidate_salesman')
             return
         }
 
-        const validateCustomers = await validateCustomer(orders.customer_id, app)
-        if(validateCustomers == undefined){
+        const customersId = await validateCustomerByCpf(orders.customer.cpf, app)
+        if(customersId == undefined){
             res.status(400).send('invalidate_customers')
             return
         }
-/*
+
+        
+
+
         if(idput != undefined && !isNaN(idput)){
              await app.db('orders')
                 .where({id: idput})
                 .update({
-                    customers_id: orders.customer_id,
-                    salesman_id: orders.salesman_id,
-                    money_input: orders.money_input,
-                    money_rest: orders.money_rest,
-                    money_all: orders.money_all,
+                    customers_id: customersId,
+                    salesman_id: salesmenId,
+                    money_input: orders.initialValue,
+                    money_all: orders.sumTotalPrices,
                 })
                 .then(respo => res.status(204).send('success'))
                 .catch(err => res.status(500).send('error_sever'))
     
         } else {
             await app.db
-            .raw(`SELECT create_orders(${orders.salesman_id},${orders.customer_id},
-                CAST (${orders.money_input} AS MONEY), 
-                CAST (${orders.money_all} AS MONEY));`)
-            .then(respo => res.status(204).send('success'))
-            .catch(err => res.status(500).send('error_server'))
-        }*/
+            .raw(`SELECT create_orders(${salesmenId},${customersId},
+                CAST (${orders.initialValue} AS MONEY), 
+                CAST (${orders.sumTotalPrices} AS MONEY));`)
+            .then(resp => { 
+                res.send(resp.rows[0].create_orders)
+            } )
+            .catch(function(err){ 
+                res.status(500).send('error_server')
+            })
+        }
     }
 
     //----------------------------------------------
