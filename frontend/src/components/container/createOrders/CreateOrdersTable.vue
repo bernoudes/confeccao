@@ -9,10 +9,17 @@
             <b-button id="buReset" @click="resetData" :disabled="disabled"> Cancelar </b-button>
         </div>
         <template>
-            <b-table :sticky-header="!disabled" striped :fields="orders.fields" :items="orders.items" bordered
-                class="text-center">
+            <b-table :sticky-header="!disabled" striped :fields="orders.fields" :items="orders.items" bordered 
+                class="text-center " small>
                 <template #cell(product)="row">
-                    <b-form-input v-model="row.item.product" :disabled="disabled"></b-form-input>
+                    <b-form-select 
+                        ref="reSelectProduct"
+                        class='selectProduct'
+                        :options="productList"
+                        :value="1"
+                        v-model="row.item.product_id"
+                        :disabled="disabled">
+                    </b-form-select>
                 </template>
                 <template #cell(price_unity)="row">
                     <b-form-input v-model="row.item.price_unity" :disabled="disabled"></b-form-input>
@@ -53,7 +60,7 @@
 </template>
 
 <script>
-//import axios from 'axios'
+import axios from 'axios'
 import conn from '../../../config/conn'
 import CreateOrdersPay from './CreateOrdersPay'
 import SimplesMessage from '../SimplesMessage'
@@ -82,6 +89,8 @@ export default {
                 items:[],
                 fields: orderFildes,
             },
+            selectedProduct:null,
+            productList: {},
             errorResetControl: false
         })
     },
@@ -94,7 +103,7 @@ export default {
         newItem(event){
             event.preventDefault()
             this.orders.items.push({
-                product: '',
+                product_id: 1,
                 price_unity:'',
                 quantity_products:'',
                 embroidery: true,
@@ -138,6 +147,7 @@ export default {
                     } else{
                         const order = {
                             salesman: conn.user.name,
+                            salesmanLogin: conn.user.login,
                             customer: this.customer,
                             sumTotalPrices: sumPriceCalc,
                             sumTotalQuant: sumQuantCalc,
@@ -163,6 +173,14 @@ export default {
         resetData(){
             this.orders.items.splice(0, this.orders.items.length)
         },
+    },
+    async mounted(){
+        const res = await axios.get(`${conn.backUrl}/product`)
+        const formartRes = (product) => {
+            return {text: product.type_product, value:product.id}
+        }
+
+        this.productList = res.data.map(product => formartRes(product))
     }
 }
 </script>
@@ -179,5 +197,9 @@ export default {
     }
     .createOrders .buttonNewEx #buReset{
         margin-left: 50px;
+    }
+
+    .createOrders .selectProduct{
+        width: 80px;
     }
 </style>
