@@ -24,26 +24,9 @@ module.exports= app =>{
             errorInfo.concat('error_quantity_products-')
         
         if(errorInfo != ''){
-            res.status(400).send(errorInfo)
+            res.send(errorInfo)
             return
-        }    
-
-        const turnUndefinedInFalse = (custom) =>{
-            if(custom == undefined){
-                custom = false
-            } 
-            return custom
-        }
-
-        //the other attributes can be null 
-        production.embroidery = turnUndefinedInFalse(production.embroidery)
-        production.silk = turnUndefinedInFalse(production.silk)
-        production.laser_applique = turnUndefinedInFalse(production.laser_applique)
-        production.laser_holes = turnUndefinedInFalse(production.laser_holes)
-        production.sublimation_applique = turnUndefinedInFalse(production.sublimation_applique)
-        production.sublimation_body = turnUndefinedInFalse(production.sublimation_body)
-        production.vies = turnUndefinedInFalse(production.vies)
-        production.forro = turnUndefinedInFalse(production.forro)
+        }   
 
         if(cod != undefined){
             console.log(cod)
@@ -64,6 +47,7 @@ module.exports= app =>{
                 .then(resp => res.status(204).send('success'))
                 .catch(err => res.status(500).send('error_server') )
         } else {
+            console.log(production)
             await app.db
                 .raw(`SELECT create_production(
                     ${production.orders_id}, ${production.product_id},CAST(${production.price_unity} AS MONEY),
@@ -72,13 +56,9 @@ module.exports= app =>{
                     ${production.sublimation_body}, ${production.vies}, ${production.forro})`)
                 .then(resp => {
                     const saveResp = resp.rows[0].create_production
-                    if(saveResp == 'successs'){
-                        res.status(204).send(saveResp)
-                    } else {
-                        res.status(400).send(saveResp)
-                    }
+                    res.send(saveResp)
                 })
-                .catch(err => res.send(500).send('error_server'))
+                .catch(err =>res.send(err))
         }
     }
     //----------------------------------------------
