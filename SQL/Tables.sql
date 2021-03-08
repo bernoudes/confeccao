@@ -88,3 +88,6 @@ CREATE TABLE production(
 	seam_arremate TIMESTAMP,
 	seam_passadoria TIMESTAMP
 );
+
+select * from orders;
+select * from production;
