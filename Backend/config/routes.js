@@ -26,6 +26,10 @@ module.exports = app => {
         .get(app.api.customers.getByCpf)
         .delete(app.api.customers.remove)
 
+    //actions about types of possibles products
+    app.route('/product')
+        .get(app.api.product.get)
+
 
     //actions about orders (admin and salesman can create but only adim can remove)
     app.route('/orders')
